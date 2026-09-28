@@ -5,7 +5,7 @@ from mine.models import creatingrecord
 from mine.db import engine,Base
 from sqlalchemy.orm import Session
 
-from mine.routers import users
+from mine.routers import users,auth
 
 
 app=FastAPI()
@@ -27,4 +27,5 @@ def create_post(post:schemas.Create_record_posts):
         }
 
 app.include_router(users.router)
+app.include_router(auth.router)
 
