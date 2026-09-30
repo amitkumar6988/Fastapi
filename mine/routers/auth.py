@@ -5,6 +5,7 @@ from mine import schemas
 from mine.db import engine
 from mine import models
 from .. import utils
+from mine.routers import oauth2
 
 router=APIRouter(tags=['Authentication'])
 
@@ -24,7 +25,12 @@ def login(user_credentials:schemas.UserLogin):
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail='email or password is wrong'
         )
-    return {"message":"token created"}
+
+    #create and return token
+    acess_token=oauth2.create_access_token(data={"user_id": user.id})
+    return {"access token":acess_token,"token_type":"bearer"}
+
+
 
 
 
